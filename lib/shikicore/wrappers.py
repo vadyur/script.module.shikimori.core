@@ -9,22 +9,37 @@ def authorize(login, password, token=None):
 	return api.token
 
 def list():
-	return api.animes().get()
+	try:
+		return api.animes().get()
+	except ValueError:
+		return []
 	
 def ongoing(limit=20, page=1):
-	return api.animes(status='ongoing', limit=limit, page=page).get()
+	try:
+		return api.animes(status='ongoing', limit=limit, page=page).get()
+	except ValueError:
+		return []
 
 def animes_search(s, limit=20, page=1):
-	return api.animes(search=s, limit=limit, page=page).get()
+	try:
+		return api.animes(search=s, limit=limit, page=page).get()
+	except ValueError:
+		return []
 
 def by_year(year, limit=20, page=1):
-	return api.animes(status='released', season=year, limit=limit, page=page).get()
+	try:
+		return api.animes(status='released', season=year, limit=limit, page=page).get()
+	except ValueError:
+		return []
 
 def genres():
 	return api.genres().get()
 
 def by_genre(genre, limit=20, page=1):
-	return api.animes(genre=genre, limit=limit, page=page).get()
+	try:
+		return api.animes(genre=genre, limit=limit, page=page).get()
+	except ValueError:
+		return []
 
 def animes_screenshots(id):
 	try:
