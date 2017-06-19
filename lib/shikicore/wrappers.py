@@ -14,6 +14,9 @@ def list():
 def ongoing(limit=20, page=1):
 	return api.animes(status='ongoing', limit=limit, page=page).get()
 
+def animes_search(s, limit=20, page=1):
+	return api.animes(search=s, limit=limit, page=page).get()
+
 def by_year(year, limit=20, page=1):
 	return api.animes(status='released', season=year, limit=limit, page=page).get()
 
