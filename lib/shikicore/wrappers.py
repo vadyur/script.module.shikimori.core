@@ -47,3 +47,9 @@ def animes_similar(id):
 		return api.animes('%s/similar' % str(id)).get()
 	except ValueError:
 		return []
+
+def animes_related(id):
+	try:
+		return api.animes('%s/related' % str(id)).get()
+	except ValueError:
+		return []
