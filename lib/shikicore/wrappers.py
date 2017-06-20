@@ -20,6 +20,17 @@ def ongoing(limit=20, page=1):
 	except ValueError:
 		return []
 
+def favourites(limit=20, page=1):
+	try:
+		whoami = api.users('whoami').get()
+
+		fv = api.users('%s/favourites' % whoami['id'], limit=limit, page=page).get()
+		return fv['animes']
+
+	except ValueError:
+		return []
+
+
 def animes_search(s, limit=20, page=1):
 	try:
 		return api.animes(search=s, limit=limit, page=page).get()
