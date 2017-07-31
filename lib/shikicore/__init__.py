@@ -7,4 +7,4 @@ import pyshiki
 
 from pyshiki import Api
 from wrappers import *
-
+from settings import *
