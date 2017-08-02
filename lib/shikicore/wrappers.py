@@ -20,11 +20,18 @@ def ongoing(limit=20, page=1):
 	except ValueError:
 		return []
 
-def favourites(limit=20, page=1):
+def whoami():
 	try:
-		whoami = api.users('whoami').get()
+		return api.users('whoami').get()
+	except ValueError:
+		return None
 
-		fv = api.users('%s/favourites' % whoami['id'], limit=limit, page=page).get()
+def favourites(limit=20, page=1, _whoami=None):
+	try:
+		if not _whoami:
+			_whoami = whoami()
+
+		fv = api.users('%s/favourites' % _whoami['id'], limit=limit, page=page).get()
 		return fv['animes']
 
 	except ValueError:
@@ -82,3 +89,40 @@ def animes_related(id):
 		return api.animes('%s/related' % str(id)).get()
 	except ValueError:
 		return []
+
+def user_rates(user_id=None, target_id=None):
+	try:
+		return api.user_rates(user_id=user_id, target_id=target_id, target_type='Anime').get()
+	except ValueError:
+		return []
+
+def prepare_user_rate(score, status, target_id, user_id):
+	if not user_id:
+		user_id = whoami()['id']
+	
+	user_rate = {'user_id': user_id}
+	
+	if target_id:
+		user_rate['target_id'] = target_id
+		user_rate['target_type'] = 'Anime'
+	
+	if status:
+		user_rate['status'] = status
+	
+	if score:
+		user_rate['score'] = status
+	return user_rate
+
+def create_user_rate(user_id=None, target_id=None, status=None, score=None):
+
+	user_rate = prepare_user_rate(score, status, target_id, user_id)
+
+	return api.user_rates(user_rate=user_rate).post()
+
+def update_user_rate(id, user_id=None, target_id=None, status=None, score=None):
+	user_rate = prepare_user_rate(score, status, target_id, user_id)
+
+	return api.user_rates(str(id), user_rate=user_rate).patch()
+
+def delete_user_rate(id):
+	return api.user_rates(str(id)).delete()
