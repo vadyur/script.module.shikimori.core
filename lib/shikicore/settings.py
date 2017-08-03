@@ -13,17 +13,16 @@ def authorize_me():
 	passw_ok = core.password_ok
 
 	if uname == uname_ok and passw == passw_ok and token:
-		r = authorize(uname, passw, token)
+		api = authorize(uname, passw, token)
 	else:
-		r = authorize(uname, passw)
-	core.log_error(str(r))
+		api = authorize(uname, passw)
 
-	if not r:
+	if not api.token:
 		core.addon.openSettings()
-		return False
+		return None
 	else:
-		core.token = r
+		core.token = api.token
 		core.username_ok = uname
 		core.password_ok = passw
 
-	return True
+	return api

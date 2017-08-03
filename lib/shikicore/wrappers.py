@@ -6,7 +6,7 @@ def authorize(login, password, token=None):
 	global api
 	api = Api(login, password, token=token)
 	
-	return api.token
+	return api
 
 def list():
 	try:
@@ -90,9 +90,18 @@ def animes_related(id):
 	except ValueError:
 		return []
 
-def user_rates(user_id=None, target_id=None):
+def user_rates(user_id=None, target_id=None, status=None):
 	try:
-		return api.user_rates(user_id=user_id, target_id=target_id, target_type='Anime').get()
+		kwargs = {}
+		if user_id:
+			kwargs['user_id'] = user_id
+		if target_id:
+			kwargs['target_id'] = target_id
+			kwargs['target_type'] = 'Anime'
+		if status:
+			kwargs['status'] = status
+
+		return api.user_rates(**kwargs).get()
 	except ValueError:
 		return []
 
@@ -125,4 +134,7 @@ def update_user_rate(id, user_id=None, target_id=None, status=None, score=None):
 	return api.user_rates(str(id), user_rate=user_rate).patch()
 
 def delete_user_rate(id):
-	return api.user_rates(str(id)).delete()
+	try:
+		api.user_rates(str(id)).delete()
+	except ValueError:
+		pass
