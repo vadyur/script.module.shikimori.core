@@ -43,15 +43,15 @@ class Api(object):
             req_url = self.root_url + request._method_name
 
         if meth == 'get':
-            r = self.session.get(req_url, params=args)
+            r = self.session.get(req_url, params=args, verify=False)
         elif meth == 'post':
-            r = self.session.post(req_url, json=args)
+            r = self.session.post(req_url, json=args, verify=False)
         elif meth == 'patch':
-            r = self.session.patch(req_url, json=args)
+            r = self.session.patch(req_url, json=args, verify=False)
         elif meth == 'put':
-            r = self.session.put(req_url, json=args)
+            r = self.session.put(req_url, json=args, verify=False)
         elif meth == 'delete':
-            r = self.session.delete(req_url)
+            r = self.session.delete(req_url, verify=False)
         return r.json()
 
 
