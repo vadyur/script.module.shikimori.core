@@ -23,21 +23,18 @@
     </Compile>
     <Compile Include="lib\shikicore\wrappers.py" />
     <Compile Include="lib\shikicore\__init__.py" />
-    <Compile Include="resources\lib\PyShiki\pyshiki\shikimoriapi.py" />
-    <Compile Include="resources\lib\PyShiki\pyshiki\__init__.py" />
-    <Compile Include="resources\lib\PyShiki\setup.py" />
+    <Compile Include="resources\lib\pyshiki\shikimoriapi.py" />
+    <Compile Include="resources\lib\pyshiki\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="addon.xml" />
-    <Content Include="resources\lib\PyShiki\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
     <Folder Include="lib\shikicore" />
     <Folder Include="resources\" />
     <Folder Include="resources\lib\" />
-    <Folder Include="resources\lib\PyShiki" />
-    <Folder Include="resources\lib\PyShiki\pyshiki" />
+    <Folder Include="resources\lib\pyshiki\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
