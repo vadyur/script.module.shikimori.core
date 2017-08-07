@@ -90,7 +90,7 @@ def animes_related(id):
 	except ValueError:
 		return []
 
-def user_rates(user_id=None, target_id=None, status=None):
+def user_rates(user_id=None, target_id=None, status=None, score=None):
 	try:
 		kwargs = {}
 		if user_id:
@@ -100,6 +100,8 @@ def user_rates(user_id=None, target_id=None, status=None):
 			kwargs['target_type'] = 'Anime'
 		if status:
 			kwargs['status'] = status
+		if score:
+			kwargs['score'] = score
 
 		return api.user_rates(**kwargs).get()
 	except ValueError:
@@ -119,7 +121,8 @@ def prepare_user_rate(score, status, target_id, user_id):
 		user_rate['status'] = status
 	
 	if score:
-		user_rate['score'] = status
+		user_rate['score'] = score
+
 	return user_rate
 
 def create_user_rate(user_id=None, target_id=None, status=None, score=None):
