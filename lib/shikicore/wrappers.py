@@ -141,3 +141,18 @@ def delete_user_rate(id):
 		api.user_rates(str(id)).delete()
 	except ValueError:
 		pass
+
+def search_adv(s=None, limit=20, page=1, **kwargs):
+	try:
+		if s:
+			kwargs['search'] = s
+
+		if limit:
+			kwargs['limit'] = limit
+
+		if page:
+			kwargs['page'] = page
+
+		return api.animes(**kwargs).get()
+	except ValueError:
+		return []
